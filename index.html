@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <title>atomantic/JavaScript-Playing-Cards @ GitHub</title>
+
+    <link rel="stylesheet" type="text/css" media="all" href="playingCards.ui.css"/>
+    <style type="text/css">
+        body {
+          margin-top: 1.0em;
+          background-color: #fff;
+          font-family: "Helvetica,Arial,FreeSans";
+          color: #000000;
+        }
+        #container {
+          margin: 0 auto;
+          width: 860px;
+        }
+        h1 { font-size: 40px; color: #64052a; margin-bottom: 3px; }
+        h1 .small { font-size: 0.4em; }
+        h1 a { text-decoration: none }
+        h2 { font-size: 1.5em; color: #64052a; }
+        h3 { text-align: center; color: #64052a; }
+        a { color: #64052a; }
+        .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+        .download { float: right; }
+            pre { background: #000; color: #fff; padding: 15px;}
+        hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+        .footer { text-align:center; padding-top:30px; font-style: italic; }
+        h2{
+            clear:both;
+        }
+        #error{
+            display:none;color:#f00;border:1px solid #f60;padding:5px;margin:5px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+  <div id="container">
+
+
+    <h2>Demo</h2>
+    <div id="error"></div>
+    <input type="button" id="draw" value="draw a card" />
+    <h2>Card Deck</h2>
+    <div id="cardDeck"></div>
+    <br />
+    <h2>Drawn Cards</h2>
+    <div id="yourHand"></div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="playingCards.js"></script>
+    <script type="text/javascript" src="playingCards.ui.js"></script>
+    <script type="text/javascript">
+        /*
+         * example throwing cards on the table
+         */
+        $(document).ready(function(){
+            var cardDeck = $("#cardDeck").playingCards();
+            cardDeck.spread(); // show it
+
+            var hand = [];
+            var showError = function(msg){
+                $('#error').html(msg).show();
+                setTimeout(function(){
+                    $('#error').fadeOut('slow');
+                },3000);
+            }
+            var showHand = function(){
+                var el = $('#yourHand')
+                el.html('');
+                for(var i=0;i<hand.length;i++){
+                    el.append(hand[i].getHTML());
+                }
+            }
+            var doDrawCard = function(){
+
+                for(i=0;i<5;i++){
+                    var c = cardDeck.draw();
+                
+                hand[hand.length] = c;
+                }
+                cardDeck.spread();
+                showHand();
+                
+                
+            }
+    
+            $('#draw').click(doDrawCard);
+           
+        
+        });
+    </script>
+
+  </div>
+</body>
+</html>
+˝
